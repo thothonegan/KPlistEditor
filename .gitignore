@@ -1,0 +1,8 @@
+/Build*
+/build*
+
+
+*~
+.*.bak
+.*.swp
+.kdev4/

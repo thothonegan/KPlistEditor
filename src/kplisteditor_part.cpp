@@ -32,6 +32,8 @@
 #include <QtCore/QTextStream>
 #include <QtGui/QTextEdit>
 
+#include "plisteditorwidget.h"
+
 typedef KParts::GenericFactory<KPlistEditorPart> KPlistEditorPartFactory;
 K_EXPORT_COMPONENT_FACTORY( libkplisteditorpart, KPlistEditorPartFactory )
 
@@ -42,7 +44,7 @@ KPlistEditorPart::KPlistEditorPart( QWidget *parentWidget, QObject *parent, cons
     setComponentData( KPlistEditorPartFactory::componentData() );
 
     // this should be your custom internal widget
-    m_widget = new QTextEdit( parentWidget);
+    m_widget = new PListEditorWidget ( parentWidget);
 
     // notify the part that this is our internal widget
     setWidget(m_widget);
@@ -67,6 +69,8 @@ KPlistEditorPart::~KPlistEditorPart()
 
 void KPlistEditorPart::setReadWrite(bool rw)
 {
+	qDebug() << "Marking as : " << rw;
+	
     // notify your internal widget of the read-write state
     m_widget->setReadOnly(!rw);
     if (rw)
@@ -109,24 +113,27 @@ KAboutData *KPlistEditorPart::createAboutData()
 }
 
 bool KPlistEditorPart::openFile()
-{
+{	
     // m_file is always local so we can use QFile on it
-    QFile file("m_file");
+    QFile file(localFilePath());
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+	{
         return false;
-
-    // our example widget is text-based, so we use QTextStream instead
-    // of a raw QDataStream
-    QTextStream stream(&file);
-    QString str;
-    while (!stream.atEnd())
-        str += stream.readLine() + "\n";
-
+	}
+	
+	QByteArray a = file.readAll();
+	
     file.close();
 
+	std::vector<char> array;
+	
+	for (int x=0; x < a.size(); ++x)
+		array.push_back (a[x]);
+	
     // now that we have the entire file, display it
-    m_widget->setPlainText(str);
-
+    m_widget->loadXML(QString(a).toStdString());
+	//m_widget->loadBinary (array);
+	
     // just for fun, set the status bar
     //emit setStatusBarText( m_url.prettyUrl() );
 
@@ -139,6 +146,7 @@ bool KPlistEditorPart::saveFile()
     if (isReadWrite() == false)
         return false;
 
+#if 0
     // m_file is always local, so we use QFile
     QFile file("m_file");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -149,6 +157,7 @@ bool KPlistEditorPart::saveFile()
     stream << m_widget->document();
 
     file.close();
+#endif
 
     return true;
 }

@@ -91,3 +91,4 @@ GenericName[zh_CN]=KDE KPart 应用程序
 GenericName[zh_TW]=KDE KPart 應用程式
 Terminal=false
 X-Ubuntu-Gettext-Domain=desktop_kdesdk
+MimeType=application/xml;application/x-plist;text/plist

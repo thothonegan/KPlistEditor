@@ -39,7 +39,7 @@ KPlistEditor::KPlistEditor()
     : KParts::MainWindow( )
 {
     // set the shell's ui resource file
-    setXMLFile("kplisteditor_shell.rc");
+    //setXMLFile("kplisteditor_shell.rc");
 
     // then, setup our actions
     setupActions();

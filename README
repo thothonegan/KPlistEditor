@@ -1,7 +1,8 @@
-How To Build This Template
--=-=-=-=-=-=-=-=-=-=-=-=-=
+Simple text based plist viewer for KDE. Doesn't do editing yet. At the moment it also doesn't handle binary files, but that should be possible.
 
---- On Unix:
+Also provides a kpart, mostly so kdevelop can show plists directly.
+
+To build:
 
 cd <project_name_path>
 mkdir build
@@ -10,43 +11,7 @@ cmake -DCMAKE_INSTALL_PREFIX=$KDEDIRS -DCMAKE_BUILD_TYPE=Debug ..      <- do not
 make
 make install or su -c 'make install'
 
-where $KDEDIRS points to your KDE installation prefix.
+where $KDEDIRS points to your KDE installation prefix. (usually $HOME/.kde for local)
 
-to uninstall the project:
-make uninstall or su -c 'make uninstall'
+Requires libplist++-dev, libplist++1, libplist-dev, libplist1 and kdelibs5-dev (ubuntu) or similar packages for other linux systems. For some reason the ubuntu dev package for libplist++-dev doesnt depend on libplist++1.
 
-Note: you can use another build path. Then cd in your build dir and:
-export KDE_SRC=path_to_your_src
-cmake $KDE_SRC -DCMAKE_INSTALL_PREFIX=$KDEDIRS -DCMAKE_BUILD_TYPE=Debug
-
---- On Windows:
-
-cd <project_name_path>
-mkdir build
-cd build
-cmake -DCMAKE_INSTALL_PREFIX=%KDEDIRS% -DCMAKE_BUILD_TYPE=Debug ..      <- do not forget the ..
-[n]make
-[n]make install
-
-where %KDEDIRS% points to your KDE installation prefix.
-
-to uninstall the project:
-[n]make uninstall
-
-Note: use nmake if you're building with the Visual Studio compiler, or make
-if you're using the minGW compiler
-
-
-Tutorials
--=-=-=-=-
-Kpart docs
-http://techbase.kde.org/index.php?title=Development/Architecture/KDE4/KParts
-Tutorial
-http://techbase.kde.org/Development/Architecture/KDE3/KParts
-
-----------------------------
-Please send all comments to:
-Anne-Marie Mahfouf
-annma@kde.org
-
-Last update: July 2009

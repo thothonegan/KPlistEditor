@@ -25,7 +25,7 @@
 class QWidget;
 class QPainter;
 class KUrl;
-class QTextEdit;
+class PListEditorWidget;
 class KAboutData;
 class KAction;
 
@@ -81,7 +81,7 @@ protected slots:
     void fileSaveAs();
 
 private:
-    QTextEdit *m_widget;
+    PListEditorWidget *m_widget;
 };
 
 #endif // KPLISTEDITORPART_H
