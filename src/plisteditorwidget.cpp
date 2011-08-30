@@ -161,7 +161,7 @@ QTreeWidgetItem* PListEditorWidget::generateBooleanItem(PList::Node* node )
 	
 	item->setText (NameColumn, "<unknown>");
 	item->setText (TypeColumn, "Boolean");
-	item->setText (ValueColumn, QString::number(boolean->GetValue()));
+	item->setText (ValueColumn, (boolean->GetValue() ? "true" : "false"));
 	
 	return item;
 }
